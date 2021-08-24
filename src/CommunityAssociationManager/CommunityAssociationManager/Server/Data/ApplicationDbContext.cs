@@ -20,5 +20,13 @@ namespace CommunityAssociationManager.Server.Data
         public DbSet<CommunityProperty> CommunityProperties { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Tax> Taxes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Community>()
+                .HasOne<CommunityMember>(c => c.Manager);
+            builder.Entity<Community>()
+                .HasOne<CommunityMember>(c => c.Cashier);
+        }
     }
 }
