@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace CommunityAssociationManager.Shared.Models
 {
     public class CommunityMember
     {
+        [Key]
         public uint Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -15,8 +17,12 @@ namespace CommunityAssociationManager.Shared.Models
         public string Country { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public IList<Property> Properties { get; set; }
-        public IList<Tax> Taxes { get; set; }
-        public IList<Community> Communities { get; set; }
+        public virtual IList<Property> Properties { get; set; }
+
+        public virtual IList<Community> ManagedCommunities { get; set; } 
+
+        // TODO: Rename?
+        public virtual IList<Community> CashierCommunities { get; set; }
+
     }
 }

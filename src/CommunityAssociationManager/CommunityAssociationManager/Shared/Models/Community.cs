@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CommunityAssociationManager.Shared.Models
 {
     public class Community
     {
+        [Key]
         public uint Id { get; set; }
-        public CommunityMember Manager { get; set; }
-        public CommunityMember Cashier { get; set; }
-        public IList<CommunityMember> Members { get; set; }
-        public IList<Property> CommunityProperties { get; set; }
-        public IList<Tax> CommunityTaxes { get; set; }
+        public uint ManagerId { get; set; }
+        public virtual CommunityMember Manager { get; set; }
+        public uint CashierId { get; set; }
+        public virtual CommunityMember Cashier { get; set; }
+        public virtual IList<CommunityProperty> CommunityProperties { get; set; }
+        public virtual IList<Property> Properties { get; set; }
+        public virtual IList<RecurringTax> RecurringTaxes { get; set; }
     }
 }
