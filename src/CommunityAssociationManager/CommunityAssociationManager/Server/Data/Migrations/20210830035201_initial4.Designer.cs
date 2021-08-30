@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CommunityAssociationManager.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210825122428_initial2")]
-    partial class initial2
+    [Migration("20210830035201_initial4")]
+    partial class initial4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,10 +93,10 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-                    b.Property<long>("CashierId")
+                    b.Property<long?>("CashierId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ManagerId")
+                    b.Property<long?>("ManagerId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -484,15 +484,11 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                 {
                     b.HasOne("CommunityAssociationManager.Shared.Models.CommunityMember", "Cashier")
                         .WithMany("CashierCommunities")
-                        .HasForeignKey("CashierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CashierId");
 
                     b.HasOne("CommunityAssociationManager.Shared.Models.CommunityMember", "Manager")
                         .WithMany("ManagedCommunities")
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ManagerId");
 
                     b.Navigation("Cashier");
 

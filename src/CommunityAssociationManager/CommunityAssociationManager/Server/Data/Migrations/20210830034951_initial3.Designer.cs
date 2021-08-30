@@ -4,14 +4,16 @@ using CommunityAssociationManager.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CommunityAssociationManager.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210830034951_initial3")]
+    partial class initial3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,6 +121,9 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("CommunityId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
@@ -132,6 +137,8 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommunityId");
 
                     b.ToTable("CommunityMembers");
                 });
@@ -493,6 +500,13 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                     b.Navigation("Manager");
                 });
 
+            modelBuilder.Entity("CommunityAssociationManager.Shared.Models.CommunityMember", b =>
+                {
+                    b.HasOne("CommunityAssociationManager.Shared.Models.Community", null)
+                        .WithMany("CommunityMembers")
+                        .HasForeignKey("CommunityId");
+                });
+
             modelBuilder.Entity("CommunityAssociationManager.Shared.Models.CommunityProperty", b =>
                 {
                     b.HasOne("CommunityAssociationManager.Shared.Models.Community", "Owner")
@@ -608,6 +622,8 @@ namespace CommunityAssociationManager.Server.Data.Migrations
 
             modelBuilder.Entity("CommunityAssociationManager.Shared.Models.Community", b =>
                 {
+                    b.Navigation("CommunityMembers");
+
                     b.Navigation("CommunityProperties");
 
                     b.Navigation("Properties");

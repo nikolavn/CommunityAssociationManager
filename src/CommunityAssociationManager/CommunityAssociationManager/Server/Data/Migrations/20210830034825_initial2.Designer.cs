@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CommunityAssociationManager.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210825122342_initial")]
-    partial class initial
+    [Migration("20210830034825_initial2")]
+    partial class initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,10 +93,10 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-                    b.Property<long>("CashierId")
+                    b.Property<long?>("CashierId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ManagerId")
+                    b.Property<long?>("ManagerId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -121,6 +121,9 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("CommunityId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
@@ -134,6 +137,8 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommunityId");
 
                     b.ToTable("CommunityMembers");
                 });
@@ -484,19 +489,22 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                 {
                     b.HasOne("CommunityAssociationManager.Shared.Models.CommunityMember", "Cashier")
                         .WithMany("CashierCommunities")
-                        .HasForeignKey("CashierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CashierId");
 
                     b.HasOne("CommunityAssociationManager.Shared.Models.CommunityMember", "Manager")
                         .WithMany("ManagedCommunities")
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ManagerId");
 
                     b.Navigation("Cashier");
 
                     b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("CommunityAssociationManager.Shared.Models.CommunityMember", b =>
+                {
+                    b.HasOne("CommunityAssociationManager.Shared.Models.Community", null)
+                        .WithMany("CommunityMembers")
+                        .HasForeignKey("CommunityId");
                 });
 
             modelBuilder.Entity("CommunityAssociationManager.Shared.Models.CommunityProperty", b =>
@@ -614,6 +622,8 @@ namespace CommunityAssociationManager.Server.Data.Migrations
 
             modelBuilder.Entity("CommunityAssociationManager.Shared.Models.Community", b =>
                 {
+                    b.Navigation("CommunityMembers");
+
                     b.Navigation("CommunityProperties");
 
                     b.Navigation("Properties");

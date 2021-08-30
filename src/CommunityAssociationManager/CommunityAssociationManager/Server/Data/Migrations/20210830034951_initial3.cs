@@ -2,7 +2,7 @@
 
 namespace CommunityAssociationManager.Server.Data.Migrations
 {
-    public partial class initial2 : Migration
+    public partial class initial3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

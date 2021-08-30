@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CommunityAssociationManager.Server.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class initial1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,8 +29,8 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    ManagerId = table.Column<long>(type: "bigint", nullable: false),
-                    CashierId = table.Column<long>(type: "bigint", nullable: false)
+                    ManagerId = table.Column<long>(type: "bigint", nullable: true),
+                    CashierId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,10 +40,34 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                         column: x => x.CashierId,
                         principalTable: "CommunityMembers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Communities_CommunityMembers_ManagerId",
                         column: x => x.ManagerId,
+                        principalTable: "CommunityMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommunityCommunityMember",
+                columns: table => new
+                {
+                    CommunitiesId = table.Column<long>(type: "bigint", nullable: false),
+                    CommunityMembersId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommunityCommunityMember", x => new { x.CommunitiesId, x.CommunityMembersId });
+                    table.ForeignKey(
+                        name: "FK_CommunityCommunityMember_Communities_CommunitiesId",
+                        column: x => x.CommunitiesId,
+                        principalTable: "Communities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommunityCommunityMember_CommunityMembers_CommunityMembersId",
+                        column: x => x.CommunityMembersId,
                         principalTable: "CommunityMembers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -163,6 +187,11 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                 column: "ManagerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CommunityCommunityMember_CommunityMembersId",
+                table: "CommunityCommunityMember",
+                column: "CommunityMembersId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CommunityProperties_OwnerId",
                 table: "CommunityProperties",
                 column: "OwnerId");
@@ -200,6 +229,9 @@ namespace CommunityAssociationManager.Server.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CommunityCommunityMember");
+
             migrationBuilder.DropTable(
                 name: "TaxRecurrances");
 

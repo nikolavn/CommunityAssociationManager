@@ -4,14 +4,16 @@ using CommunityAssociationManager.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CommunityAssociationManager.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210830034527_initial1")]
+    partial class initial1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,6 +240,21 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                     b.HasIndex("RecurringTaxId1");
 
                     b.ToTable("TaxRecurrances");
+                });
+
+            modelBuilder.Entity("CommunityCommunityMember", b =>
+                {
+                    b.Property<long>("CommunitiesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CommunityMembersId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("CommunitiesId", "CommunityMembersId");
+
+                    b.HasIndex("CommunityMembersId");
+
+                    b.ToTable("CommunityCommunityMember");
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -553,6 +570,21 @@ namespace CommunityAssociationManager.Server.Data.Migrations
                     b.Navigation("Property");
 
                     b.Navigation("RecurringTax");
+                });
+
+            modelBuilder.Entity("CommunityCommunityMember", b =>
+                {
+                    b.HasOne("CommunityAssociationManager.Shared.Models.Community", null)
+                        .WithMany()
+                        .HasForeignKey("CommunitiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CommunityAssociationManager.Shared.Models.CommunityMember", null)
+                        .WithMany()
+                        .HasForeignKey("CommunityMembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
