@@ -5,16 +5,16 @@ namespace CommunityAssociationManager.Server.Repositories
 {
     internal interface ICommunityRepository
     {
-        Community GetCommunity(uint id);
+        Community GetCommunityById(uint id);
         Community AddCommunity(Community community);
         Community UpdateCommunity(Community community);
         void DeleteCommunity(int communityId);
-        CommunityMember GetManager();
-        CommunityMember UpdateManger(CommunityMember manager);
-        CommunityMember GetCashier();
-        CommunityMember UpdateCashier();
-        IList<Property> GetAllMemberProperties();
-        IList<Property> GetAllCommunityProperties();
-        IList<RecurringTax> GetAllTaxes();
+        CommunityMember GetManager(Community community);
+        Community UpdateManger(Community community, CommunityMember newManager);
+        CommunityMember GetCashier(Community community);
+        Community UpdateCashier(Community community, CommunityMember newCashier);
+        IList<Property> GetAllMemberProperties(Community community);
+        IList<CommunityProperty> GetAllCommunityProperties(Community community);
+        IList<RecurringTax> GetAllTaxes(Community community);
     }
 }
