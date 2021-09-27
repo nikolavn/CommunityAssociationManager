@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace CommunityAssociationManager.Server.Repositories
 {
-    internal interface IPropertyRepository
+    public interface IPropertyRepository
     {
-        Property GetPropertyById(uint propertyId);
+        Property GetPropertyById(long propertyId);
         Property AddProperty(Property property);
         Property UpdateProperty(Property property);
-        void DeleteProperty(uint propertyId);
+        void DeleteProperty(long propertyId);
         CommunityMember GetOwner(Property property);
         Community GetCommunity(Property property);
         IList<TaxRecurrance> GetTaxRecurrances(Property property);

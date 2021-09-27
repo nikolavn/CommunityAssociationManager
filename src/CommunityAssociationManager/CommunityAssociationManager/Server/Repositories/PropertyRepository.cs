@@ -21,7 +21,7 @@ namespace CommunityAssociationManager.Server.Repositories
             return addedProperty.Entity;
         }
 
-        public void DeleteProperty(uint propertyId)
+        public void DeleteProperty(long propertyId)
         {
             var currentProperty = this.applicationDbContext.Properties.FirstOrDefault(p => p.Id == propertyId);
             if (currentProperty == null) return;
@@ -42,7 +42,7 @@ namespace CommunityAssociationManager.Server.Repositories
             return currentProperty.Owner ?? null;
         }
 
-        public Property GetPropertyById(uint propertyId)
+        public Property GetPropertyById(long propertyId)
         {
             return this.applicationDbContext.Properties.FirstOrDefault(p => p.Id == propertyId);
         }
