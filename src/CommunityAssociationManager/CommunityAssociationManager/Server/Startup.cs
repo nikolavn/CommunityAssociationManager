@@ -1,5 +1,6 @@
 using CommunityAssociationManager.Server.Data;
 using CommunityAssociationManager.Server.Models;
+using CommunityAssociationManager.Server.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

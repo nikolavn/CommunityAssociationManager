@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace CommunityAssociationManager.Server.Repositories
 {
-    internal interface ICommunityRepository
+    public interface ICommunityRepository
     {
         Community GetCommunityById(uint id);
         Community AddCommunity(Community community);
         Community UpdateCommunity(Community community);
-        void DeleteCommunity(int communityId);
+        void DeleteCommunity(uint communityId);
         CommunityMember GetManager(Community community);
         Community UpdateManger(Community community, CommunityMember newManager);
         CommunityMember GetCashier(Community community);

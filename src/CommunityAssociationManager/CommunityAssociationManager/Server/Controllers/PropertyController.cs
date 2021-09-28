@@ -36,7 +36,7 @@ namespace CommunityAssociationManager.Server.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateProperty(Property property)
+        public IActionResult UpdateProperty([FromBody] Property property)
         {
             if (property == null)
                 return BadRequest();
@@ -54,7 +54,7 @@ namespace CommunityAssociationManager.Server.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteProperty(long id)
         {
             if (id == 0)

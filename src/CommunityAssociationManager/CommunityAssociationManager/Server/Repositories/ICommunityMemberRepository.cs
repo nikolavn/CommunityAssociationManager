@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CommunityAssociationManager.Server.Repositories
 {
-    internal interface ICommunityMemberRepository
+    public interface ICommunityMemberRepository
     {
         CommunityMember GetCommunityMemberById(uint communityMemberId);
         CommunityMember AddCommunityMember(CommunityMember communityMember);

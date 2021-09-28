@@ -21,7 +21,7 @@ namespace CommunityAssociationManager.Server.Repositories
             return addedCommunity.Entity;
         }
 
-        public void DeleteCommunity(int communityId)
+        public void DeleteCommunity(uint communityId)
         {
             var currentCommunity = this.applicationDbContext.Communities.FirstOrDefault(c => c.Id == communityId);
             if (currentCommunity == null) return;
