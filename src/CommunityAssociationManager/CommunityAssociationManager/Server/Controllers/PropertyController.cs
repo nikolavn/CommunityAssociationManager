@@ -18,55 +18,55 @@ namespace CommunityAssociationManager.Server.Controllers
         [HttpGet("{id}")]
         public IActionResult GetPropertyById(uint id)
         {
-            return Ok(this.propertyRepository.GetPropertyById(id));
+            return this.Ok(this.propertyRepository.GetPropertyById(id));
         }
 
         [HttpPost]
         public IActionResult CreateProperty([FromBody] Property property)
         {
             if (property == null)
-                return BadRequest();
+                return this.BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!this.ModelState.IsValid)
+                return this.BadRequest(this.ModelState);
 
             var createdProperty = this.propertyRepository.AddProperty(property);
 
-            return Created("property", createdProperty);
+            return this.Created("property", createdProperty);
         }
 
         [HttpPut]
         public IActionResult UpdateProperty([FromBody] Property property)
         {
             if (property == null)
-                return BadRequest();
+                return this.BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!this.ModelState.IsValid)
+                return this.BadRequest(this.ModelState);
 
             var propertyToUpdate = this.propertyRepository.GetPropertyById(property.Id);
 
             if (propertyToUpdate == null)
-                return NotFound();
+                return this.NotFound();
 
             this.propertyRepository.UpdateProperty(propertyToUpdate);
 
-            return NoContent();
+            return this.NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProperty(long id)
         {
             if (id == 0)
-                return BadRequest();
+                return this.BadRequest();
 
             var propertyToDelete = this.propertyRepository.GetPropertyById(id);
 
             if (propertyToDelete == null)
-                return NotFound();
+                return this.NotFound();
             this.propertyRepository.DeleteProperty(id);
 
-            return NoContent();
+            return this.NoContent();
         }
     }
 }

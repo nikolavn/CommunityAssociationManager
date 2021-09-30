@@ -59,7 +59,6 @@ namespace CommunityAssociationManager.Server.Repositories
 
             if (currentMember != null)
             {
-
                 currentMember.Name = communityMember.Name;
                 currentMember.Address = communityMember.Address;
                 currentMember.City = communityMember.City;

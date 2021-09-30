@@ -18,55 +18,60 @@ namespace CommunityAssociationManager.Server.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCommunityById(uint id)
         {
-            return Ok(this.communityRepository.GetCommunityById(id));
+            return this.Ok(this.communityRepository.GetCommunityById(id));
         }
 
         [HttpPost]
         public IActionResult CreateProperty([FromBody] Community community)
         {
             if (community == null)
-                return BadRequest();
+                return this.BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!this.ModelState.IsValid)
+                return this.BadRequest(this.ModelState);
 
             var createdCommunity = this.communityRepository.AddCommunity(community);
 
-            return Created("community", createdCommunity);
+            return this.Created("community", createdCommunity);
         }
 
         [HttpPut]
         public IActionResult UpdateProperty([FromBody] Community community)
         {
             if (community == null)
-                return BadRequest();
+                return this.BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!this.ModelState.IsValid)
+                return this.BadRequest(this.ModelState);
 
             var communityToUpdate = this.communityRepository.GetCommunityById(community.Id);
 
             if (communityToUpdate == null)
-                return NotFound();
+                return this.NotFound();
 
             this.communityRepository.UpdateCommunity(communityToUpdate);
 
-            return NoContent();
+            return this.NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProperty(uint id)
         {
             if (id == 0)
-                return BadRequest();
+            {
+                return this.BadRequest();
+            }
 
             var communityToDelete = this.communityRepository.GetCommunityById(id);
 
             if (communityToDelete == null)
-                return NotFound();
+            {
+                return this.NotFound();
+            }
+
             this.communityRepository.DeleteCommunity(id);
 
-            return NoContent();
+            return this.NoContent();
         }
     }
 }

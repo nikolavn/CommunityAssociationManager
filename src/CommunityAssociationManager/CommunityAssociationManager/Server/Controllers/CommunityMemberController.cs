@@ -18,55 +18,55 @@ namespace CommunityAssociationManager.Server.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCommunityMemberById(uint id)
         {
-            return Ok(this.communityMemberRepository.GetCommunityMemberById(id));
+            return this.Ok(this.communityMemberRepository.GetCommunityMemberById(id));
         }
 
         [HttpPost]
         public IActionResult CreateProperty([FromBody] CommunityMember communityMember)
         {
             if (communityMember == null)
-                return BadRequest();
+                return this.BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!this.ModelState.IsValid)
+                return this.BadRequest(this.ModelState);
 
             var createdMember = this.communityMemberRepository.AddCommunityMember(communityMember);
 
-            return Created("member", createdMember);
+            return this.Created("member", createdMember);
         }
 
         [HttpPut]
         public IActionResult UpdateProperty([FromBody] CommunityMember communityMember)
         {
             if (communityMember == null)
-                return BadRequest();
+                return this.BadRequest();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!this.ModelState.IsValid)
+                return this.BadRequest(this.ModelState);
 
             var memberToUpdate = this.communityMemberRepository.GetCommunityMemberById(communityMember.Id);
 
             if (memberToUpdate == null)
-                return NotFound();
+                return this.NotFound();
 
             this.communityMemberRepository.UpdateCommnunityMember(memberToUpdate);
 
-            return NoContent();
+            return this.NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteProperty(uint id)
         {
             if (id == 0)
-                return BadRequest();
+                return this.BadRequest();
 
             var memberToDelete = this.communityMemberRepository.GetCommunityMemberById(id);
 
             if (memberToDelete == null)
-                return NotFound();
+                return this.NotFound();
             this.communityMemberRepository.RemoveCommunityMember(id);
 
-            return NoContent();
+            return this.NoContent();
         }
     }
 }
