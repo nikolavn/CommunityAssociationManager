@@ -39,9 +39,9 @@ namespace CommunityAssociationManager.Server
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddSingleton<IPropertyRepository, PropertyRepository>(); 
-            services.AddSingleton<ICommunityMemberRepository, CommunityMemberRepository>(); 
-            services.AddSingleton<ICommunityRepository, CommunityRepository>(); 
+            services.AddScoped<IPropertyRepository, PropertyRepository>(); 
+            services.AddScoped<ICommunityMemberRepository, CommunityMemberRepository>(); 
+            services.AddScoped<ICommunityRepository, CommunityRepository>(); 
             
             services.AddControllersWithViews();
             services.AddRazorPages();
