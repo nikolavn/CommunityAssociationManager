@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CommunityAssociationManager.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CommunityMemberController : Controller
     {
