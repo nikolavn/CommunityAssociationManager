@@ -12,11 +12,5 @@ namespace CommunityAssociationManager.Server.Repositories
         CommunityMember UpdateCommnunityMember(CommunityMember communityMember);
 
         void RemoveCommunityMember(uint communityMemberId);
-
-        IList<Property> GetCommunityMemberProperties(CommunityMember communityMember);
-
-        IList<Community> GetManagedCommunities(CommunityMember communityMember);
-
-        IList<Community> GetCashieredCommunities(CommunityMember communityMember);
     }
 }

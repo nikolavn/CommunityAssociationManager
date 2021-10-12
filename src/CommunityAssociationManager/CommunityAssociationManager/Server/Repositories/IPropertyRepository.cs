@@ -11,6 +11,7 @@ namespace CommunityAssociationManager.Server.Repositories
         void DeleteProperty(long propertyId);
         CommunityMember GetOwner(Property property);
         Community GetCommunity(Property property);
+        IList<Property> GetCommunityMemberProperties(CommunityMember communityMember);
         IList<TaxRecurrance> GetTaxRecurrances(Property property);
     }
 }

@@ -15,6 +15,8 @@ namespace CommunityAssociationManager.Server.Repositories
         Community UpdateCashier(Community community, CommunityMember newCashier);
         IList<Property> GetAllMemberProperties(Community community);
         IList<CommunityProperty> GetAllCommunityProperties(Community community);
+        IList<Community> GetManagedCommunitiesForMember(CommunityMember communityMember);
+        IList<Community> GetCashieredCommunitiesForMember(CommunityMember communityMember);
         IList<RecurringTax> GetAllTaxes(Community community);
     }
 }

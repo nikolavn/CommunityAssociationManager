@@ -21,27 +21,9 @@ namespace CommunityAssociationManager.Server.Repositories
             return addedCommunityMember.Entity;
         }
 
-        public IList<Community> GetCashieredCommunities(CommunityMember communityMember)
-        {
-            var currentMember = this.applicationDbContext.CommunityMembers.FirstOrDefault(cm => cm.Id == communityMember.Id);
-            return currentMember.CashierCommunities ?? null;
-        }
-
         public CommunityMember GetCommunityMemberById(uint communityMemberId)
         {
             return this.applicationDbContext.CommunityMembers.FirstOrDefault(cm =>  cm.Id == communityMemberId);
-        }
-
-        public IList<Property> GetCommunityMemberProperties(CommunityMember communityMember)
-        {
-            var currentMember = this.applicationDbContext.CommunityMembers.FirstOrDefault(cm => cm.Id == communityMember.Id);
-            return currentMember.Properties ?? null;
-        }
-
-        public IList<Community> GetManagedCommunities(CommunityMember communityMember)
-        {
-            var currentMember = this.applicationDbContext.CommunityMembers.FirstOrDefault(cm => cm.Id == communityMember.Id);
-            return currentMember.ManagedCommunities ?? null;
         }
 
         public void RemoveCommunityMember(uint communityMemberId)

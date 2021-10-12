@@ -36,6 +36,18 @@ namespace CommunityAssociationManager.Server.Repositories
             return currentCommunity.CommunityProperties ?? null;
         }
 
+        public IList<Community> GetManagedCommunitiesForMember(CommunityMember communityMember)
+        {
+            var currentMember = this.applicationDbContext.CommunityMembers.FirstOrDefault(cm => cm.Id == communityMember.Id);
+            return currentMember.ManagedCommunities ?? null;
+        }
+
+        public IList<Community> GetCashieredCommunitiesForMember(CommunityMember communityMember)
+        {
+            var currentMember = this.applicationDbContext.CommunityMembers.FirstOrDefault(cm => cm.Id == communityMember.Id);
+            return currentMember.CashierCommunities ?? null;
+        }
+
         public IList<Property> GetAllMemberProperties(Community community)
         {
             var currentCommunity = this.applicationDbContext.Communities.FirstOrDefault(c => c.Id == community.Id);

@@ -47,6 +47,12 @@ namespace CommunityAssociationManager.Server.Repositories
             return this.applicationDbContext.Properties.FirstOrDefault(p => p.Id == propertyId);
         }
 
+        public IList<Property> GetCommunityMemberProperties(CommunityMember communityMember)
+        {
+            var currentMember = this.applicationDbContext.CommunityMembers.FirstOrDefault(cm => cm.Id == communityMember.Id);
+            return currentMember.Properties ?? null;
+        }
+
         public IList<TaxRecurrance> GetTaxRecurrances(Property property)
         {
             var currentProperty = this.applicationDbContext.Properties.FirstOrDefault(p => p.Id == property.Id);
