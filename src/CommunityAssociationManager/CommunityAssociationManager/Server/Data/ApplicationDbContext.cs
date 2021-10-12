@@ -1,4 +1,5 @@
-﻿using CommunityAssociationManager.Server.Models;
+﻿using System.Collections.Generic;
+using CommunityAssociationManager.Server.Models;
 using CommunityAssociationManager.Shared.Models;
 using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Options;
@@ -45,6 +46,28 @@ namespace CommunityAssociationManager.Server.Data
             builder.Entity<RecurringTax>().HasKey(c => c.Id);
 
             base.OnModelCreating(builder);
+        }
+
+        private void SeedCommunities()
+        {
+            var testCommunity = new Community { Id = 1 };
+        }
+
+        private void SeedMembers()
+        {
+            for (uint i = 1; i < 11; i++)
+            {
+                var currentTestMember = new CommunityMember {
+                    Id = i,
+                    Name = $"TestMember{i}",
+                    Address = $"TestAddress{i}",
+                    City = "Sofia",
+                    Country = "Bulgaria",
+                    Email = $"testmember{i}@testmail.com",
+                    Phone = $"12345{i}",
+                    Properties = new List<Shared.Models.Property> { new Shared.Models.Property { Id = i, OwnerId = i, CommunityId = 1, Address = $"TestAddress{i}" } }
+                };
+            }
         }
     }
 }
